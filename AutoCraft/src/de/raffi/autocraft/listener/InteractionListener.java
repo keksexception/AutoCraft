@@ -16,6 +16,7 @@ import de.raffi.autocraft.blocks.BasicBlock;
 import de.raffi.autocraft.blocks.BlockAutoCrafter;
 import de.raffi.autocraft.blocks.ConnectableBlock;
 import de.raffi.autocraft.blocks.Interactable;
+import de.raffi.autocraft.config.Messages;
 import de.raffi.autocraft.recipes.Recipe;
 import de.raffi.autocraft.recipes.RecipeRegistry;
 import de.raffi.autocraft.utils.BlockManager;
@@ -53,7 +54,7 @@ public class InteractionListener implements Listener {
 			if(block instanceof BlockAutoCrafter) {
 				BlockAutoCrafter autoCrafter = (BlockAutoCrafter) block;
 				autoCrafter.addConnected(e.getBlock());
-				e.getPlayer().sendMessage("§aHopper have been connected");
+				e.getPlayer().sendMessage(Messages.PREFIX+" " +Messages.BLOCK_HOPPER_CONNECTED);
 			}
 			break;
 		
@@ -62,7 +63,7 @@ public class InteractionListener implements Listener {
 			if(!e.getItemInHand().getItemMeta().getDisplayName().equals("§r§eAutoCrafter§r§r")) return;
 			BlockAutoCrafter crafter = new BlockAutoCrafter(Material.WORKBENCH, 0, e.getBlockPlaced().getLocation(), null, RecipeRegistry.getRecipes().get(0));
 			BlockManager.registerBlock(crafter);
-			e.getPlayer().sendMessage("§aAutoCrafter placed.");
+			e.getPlayer().sendMessage(Messages.PREFIX+" " +Messages.BLOCK_PLACED.replace("%block%", "AutoCrafter"));
 			break;
 
 		default:
@@ -82,7 +83,7 @@ public class InteractionListener implements Listener {
 			if(b == null) return;
 			
 			BlockManager.unregisterBlock(b);
-			e.getPlayer().sendMessage("§cRemoved block");
+			e.getPlayer().sendMessage(Messages.PREFIX+" " +Messages.BLOCK_REMOVED.replace("%block%", "AutoCrafter"));
 			break;
 			
 		case HOPPER:
@@ -92,7 +93,7 @@ public class InteractionListener implements Listener {
 				for(Block connected : connectableBlock.getConnected()) {
 					if(connected.equals(e.getBlock())) {
 						connectableBlock.removeConnected(e.getBlock());
-						e.getPlayer().sendMessage("§cHopper is no longer connected");
+						e.getPlayer().sendMessage(Messages.PREFIX+" " +Messages.BLOCK_HOPPER_DISCONNECTED);
 						break;
 					}
 				}
@@ -106,12 +107,11 @@ public class InteractionListener implements Listener {
 	}
 	
 	@EventHandler
-	public void onInventoryClick(InventoryClickEvent e) {
+	public void onInventoryClick(InventoryClickEvent e) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
 		if(e.getInventory()==null) return;
 		if(e.getClickedInventory()==null) return;
-		
-		switch (e.getClickedInventory().getTitle()) {
-		case InventoryTitles.AUTOCRAFTER_MENUE:
+
+		if(e.getClickedInventory().getTitle().equals(Messages.INVENTORY_TITLE_AUTOCRAFTER_MENUE)) {
 			e.setCancelled(true);
 			switch (e.getCurrentItem().getType()) {
 			case PAPER:
@@ -127,8 +127,7 @@ public class InteractionListener implements Listener {
 			default:
 				break;
 			}
-			break;
-		case InventoryTitles.RECIPES:
+		} else if(e.getClickedInventory().getTitle().equals(Messages.INVENTORY_TITLE_RECIPES)) {
 			Player p = (Player) e.getWhoClicked();	
 			int page = InventoryTitles.getPage(p);
 			e.setCancelled(true);
@@ -155,12 +154,8 @@ public class InteractionListener implements Listener {
 					break;
 				}
 			}
-			
-			
-			break;
-		default:
-			break;
 		}
+		
 	}
 	
 	@EventHandler

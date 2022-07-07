@@ -1,6 +1,7 @@
 name: AutoCraft
-version: BETA-1
+version: BETA-2
 authors: [keksexception]
 main: de.raffi.autocraft.main.AutoCraft
 
 commands:
+   autocraft:

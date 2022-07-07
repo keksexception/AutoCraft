@@ -9,6 +9,10 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.json.simple.JSONObject;
 
+import de.raffi.autocraft.builder.ArmorBuilder;
+import de.raffi.autocraft.builder.ItemBuilder;
+import de.raffi.autocraft.builder.SkullBuilder;
+
 public class JSONConverter {
 	
 	

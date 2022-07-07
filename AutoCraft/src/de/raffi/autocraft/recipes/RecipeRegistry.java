@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 
-import de.raffi.autocraft.utils.ItemBuilder;
+import de.raffi.autocraft.builder.ItemBuilder;
 
 public class RecipeRegistry {
 	

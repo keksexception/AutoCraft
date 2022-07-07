@@ -14,13 +14,14 @@ import org.bukkit.util.EulerAngle;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import de.raffi.autocraft.builder.ItemBuilder;
+import de.raffi.autocraft.builder.SkullBuilder;
+import de.raffi.autocraft.config.Messages;
 import de.raffi.autocraft.converter.ConverterLocation;
 import de.raffi.autocraft.recipes.Recipe;
 import de.raffi.autocraft.utils.InventoryTitles;
-import de.raffi.autocraft.utils.ItemBuilder;
 import de.raffi.autocraft.utils.JSONConverter;
 import de.raffi.autocraft.utils.PlayerInteractionStorage;
-import de.raffi.autocraft.utils.SkullBuilder;
 
 public class BlockAutoCrafter extends ConnectableBlock implements Interactable{
 	
@@ -43,10 +44,10 @@ public class BlockAutoCrafter extends ConnectableBlock implements Interactable{
 	@Override
 	public void onInteract(Player p) {
 		PlayerInteractionStorage.setCurrentBlock(p, this);
-		Inventory open = Bukkit.createInventory(null, 9, InventoryTitles.AUTOCRAFTER_MENUE);
-		open.setItem(3,new ItemBuilder(Material.PAPER).setName("§aRecipes").setLore("§7Select crafting recipe").build());
-		open.setItem(4,new ItemBuilder(Material.CHEST).setName("§cIntern inventory").setLore("§7Show inventory").build());
-		open.setItem(5,new ItemBuilder(Material.DIAMOND).setName("§cOverflow inventory").setLore("§7Show inventory for crafted items").build());
+		Inventory open = Bukkit.createInventory(null, 9, Messages.INVENTORY_TITLE_AUTOCRAFTER_MENUE);
+		open.setItem(3,new ItemBuilder(Material.PAPER).setName(Messages.ITEM_RECIPES_NAME).setLore(Messages.ITEM_RECIPES_LORE).build());
+		open.setItem(4,new ItemBuilder(Material.CHEST).setName(Messages.ITEM_INTERNINV_NAME).setLore(Messages.ITEM_INTERNINV_LORE).build());
+		open.setItem(5,new ItemBuilder(Material.DIAMOND).setName(Messages.ITEM_OVERFLOW_NAME).setLore(Messages.ITEM_OVERFLOW_LORE).build());
 		p.openInventory(open);
 		
 	

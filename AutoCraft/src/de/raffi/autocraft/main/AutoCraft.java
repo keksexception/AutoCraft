@@ -6,11 +6,13 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import de.raffi.autocraft.builder.ItemBuilder;
+import de.raffi.autocraft.commands.CommandAutoCraft;
+import de.raffi.autocraft.config.Messages;
 import de.raffi.autocraft.listener.HopperHandler;
 import de.raffi.autocraft.listener.InteractionListener;
 import de.raffi.autocraft.recipes.RecipeRegistry;
 import de.raffi.autocraft.utils.BlockManager;
-import de.raffi.autocraft.utils.ItemBuilder;
 
 public class AutoCraft extends JavaPlugin {
 	
@@ -19,6 +21,9 @@ public class AutoCraft extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		autoCraft = this;
+		
+		
+		getCommand("autocraft").setExecutor(new CommandAutoCraft());
 		
 		PluginManager pm = Bukkit.getPluginManager();
 		pm.registerEvents(new InteractionListener(), this);
@@ -39,6 +44,7 @@ public class AutoCraft extends JavaPlugin {
 		BlockManager.init();
 		RecipeRegistry.init();
 		BlockManager.readBlocks();
+		Messages.loadMessages();
 		
 		
 	}

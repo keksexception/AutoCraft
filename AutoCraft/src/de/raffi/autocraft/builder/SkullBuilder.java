@@ -1,4 +1,4 @@
-package de.raffi.autocraft.utils;
+package de.raffi.autocraft.builder;
 
 import java.util.Arrays;
 

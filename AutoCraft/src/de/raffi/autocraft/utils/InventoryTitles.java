@@ -8,19 +8,19 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import de.raffi.autocraft.blocks.BlockAutoCrafter;
+import de.raffi.autocraft.builder.ItemBuilder;
+import de.raffi.autocraft.config.Messages;
 import de.raffi.autocraft.recipes.Recipe;
 import de.raffi.autocraft.recipes.RecipeRegistry;
 
 public class InventoryTitles {
-	
-	public static final String AUTOCRAFTER_MENUE="§dAutoCrafter";
-	public static final String RECIPES="§6Recipes";
+
 	
 	private static HashMap<Player, Integer> page = new HashMap<>();
 	
 	public static Inventory getRecipes(Player p, int page) {
 		
-		Inventory recipes = Bukkit.createInventory(null, 9*4, InventoryTitles.RECIPES);
+		Inventory recipes = Bukkit.createInventory(null, 9*4, Messages.INVENTORY_TITLE_RECIPES);
 		BlockAutoCrafter crafter = (BlockAutoCrafter) PlayerInteractionStorage.getCurrentBlock(p);
 		for(int i = page*9*3; i < page*9*3+9*3; i++) {
 			if(i >= RecipeRegistry.getRecipes().size()) break;
