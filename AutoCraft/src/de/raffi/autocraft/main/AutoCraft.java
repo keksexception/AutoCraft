@@ -2,6 +2,7 @@ package de.raffi.autocraft.main;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,10 +19,12 @@ public class AutoCraft extends JavaPlugin {
 	
 	private static AutoCraft autoCraft;
 	
+	private ItemStack autoCrafter;
+	
 	@Override
 	public void onEnable() {
 		autoCraft = this;
-		
+		this.autoCrafter = new ItemBuilder(Material.WORKBENCH).setName("§eAutoCrafter§5").build();
 		
 		getCommand("autocraft").setExecutor(new CommandAutoCraft());
 		
@@ -32,7 +35,7 @@ public class AutoCraft extends JavaPlugin {
 		/*
 		 * add custom recipe
 		 */
-		ShapedRecipe r = new ShapedRecipe(new ItemBuilder(Material.WORKBENCH).setName("§r§eAutoCrafter§r§r").build());
+		ShapedRecipe r = new ShapedRecipe(autoCrafter);
 		r.shape("AAA","ABA","AAA");
 		r.setIngredient('A', Material.WORKBENCH);
 		r.setIngredient('B', Material.REDSTONE_BLOCK);
@@ -51,6 +54,9 @@ public class AutoCraft extends JavaPlugin {
 	
 	public static AutoCraft getAutoCraft() {
 		return autoCraft;
+	}
+	public ItemStack getAutoCrafter() {
+		return autoCrafter;
 	}
 	@Override
 	public void onDisable() {

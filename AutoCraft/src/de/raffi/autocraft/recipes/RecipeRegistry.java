@@ -36,13 +36,13 @@ public class RecipeRegistry {
 				ShapedRecipe shaped = (ShapedRecipe) rec;
 				if(shaped.getResult().getAmount()!=0) {
 					add(new Recipe(shaped.getResult(), summarize(shaped.getIngredientMap().values().stream().toList()).toArray(ItemStack[]::new)));
-
 				}
-		
+
 			}
 		});
 		System.out.println("[AutoCraft] Registering recipes completed");
 	}
+
 	private static List<ItemStack> summarize(List<ItemStack> list) {
 		List<ItemStack>  summarized= new ArrayList<>();
 		List<ItemStack>  checkedStacks= new ArrayList<>();
@@ -80,22 +80,22 @@ public class RecipeRegistry {
 	}
 	public static String getColorSubID(int sub) {
 		switch (sub) {
-		case 0: return "(normal)";
-		case 1: return "(red)";
-		case 2: return "(cactus green)";
-		case 3: return "(cacoa beans)";
-		case 4: return "(lapis lazuli)";
-		case 5: return "(purple)";
-		case 6: return "(cyan)";
-		case 7: return "(light gray)";
-		case 8: return "(gray)";
-		case 9: return "(pink)";
-		case 10: return "(lime)";
-		case 11: return "(yellow)";
-		case 12: return "(light blue)";
-		case 13: return "(magenta)";
-		case 14: return "(orange)";
-		case 15: return "(bone meal)";
+		case 0: return "normal";
+		case 1: return "red";
+		case 2: return "cactus green";
+		case 3: return "cacoa beans";
+		case 4: return "lapis lazuli";
+		case 5: return "purple";
+		case 6: return "cyan";
+		case 7: return "light gray";
+		case 8: return "gray";
+		case 9: return "pink";
+		case 10: return "lime";
+		case 11: return "yellow";
+		case 12: return "light blue";
+		case 13: return "magenta";
+		case 14: return "orange";
+		case 15: return "bone meal";
 		
 		
 		default:

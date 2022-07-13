@@ -29,22 +29,25 @@ public class InventoryTitles {
 			for(int j = 0; j < lore.length; j++) {
 				Material type = r.getIngrediants()[j].getType();
 				if(type==Material.INK_SACK||type==Material.STAINED_GLASS)
-					lore[j] = "§7" + r.getIngrediants()[j].getAmount() + "x " + type.name() + " " + RecipeRegistry.getColorSubID(r.getIngrediants()[j].getDurability());
+					lore[j] = "§7" + r.getIngrediants()[j].getAmount() + "x " + RecipeRegistry.getColorSubID(r.getIngrediants()[j].getDurability()) + " " + type.name().toLowerCase().replace("_", " ");
 				else
-					lore[j] = "§7" + r.getIngrediants()[j].getAmount() + "x " + type.name();
+					lore[j] = "§7" + r.getIngrediants()[j].getAmount() + "x " + type.name().toLowerCase().replace("_", " ");
 			}
 			recipes.setItem(i-page*9*3,new ItemBuilder(r.getTarget().clone())
 					.glow(crafter.getTarget().getTarget().getType()==r.getTarget().getType()&&crafter.getTarget().getTarget().getDurability()==r.getTarget().getDurability())
 					.setLore(lore)
 					.build());
 		}
+		
+		recipes.setItem(9*4-3, new ItemBuilder(Material.SIGN).setName("§dSearch").setLore("§7Comming soon").build());
+		
 		if(page!=0)
-			recipes.setItem(9*3, new ItemBuilder(Material.PAPER).setName("§e<<").build());
+			recipes.setItem(9*3, new ItemBuilder(Material.PAPER).setName("§e<<").setLore(Messages.PAGE+" " +page).build());
 		
 		recipes.setItem(9*4-5, crafter.getTarget().getTarget());
 		
 		if(RecipeRegistry.getRecipes().size()>(page+1)*9*3)
-			recipes.setItem(9*4-1, new ItemBuilder(Material.PAPER).setName("§e>>").build());
+			recipes.setItem(9*4-1, new ItemBuilder(Material.PAPER).setName("§e>>").setLore(Messages.PAGE+" " + (page+2)).build());
 		
 		
 		return recipes;

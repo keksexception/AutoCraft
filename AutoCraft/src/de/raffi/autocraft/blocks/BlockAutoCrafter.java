@@ -19,7 +19,6 @@ import de.raffi.autocraft.builder.SkullBuilder;
 import de.raffi.autocraft.config.Messages;
 import de.raffi.autocraft.converter.ConverterLocation;
 import de.raffi.autocraft.recipes.Recipe;
-import de.raffi.autocraft.utils.InventoryTitles;
 import de.raffi.autocraft.utils.JSONConverter;
 import de.raffi.autocraft.utils.PlayerInteractionStorage;
 
