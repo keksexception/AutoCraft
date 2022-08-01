@@ -38,11 +38,22 @@ public class Messages {
 	public static  String ITEM_OVERFLOW_NAME = "§cOverflow inventory";
 	@Config("item.craftinginventory.lore")
 	public static  String ITEM_OVERFLOW_LORE = "§7Show inventory for crafted items";
+	@Config("item.autocrafter.lore")
+	public static  String ITEM_AUTOCRAFTER_LORE = "§7Automatic §ecrafting §7block";
+	@Config("item.autoenchanter.lore")
+	public static  String ITEM_AUTOENCHANTER_LORE = "§7Automatic §5enchanting §7block";
+	@Config("item.oreblock.lore")
+	public static  String ITEM_OREBLOCK_LORE = "§7Converts cobblestone into §ddiamonds";
+	@Config("item.blockcrusher.lore")
+	public static  String ITEM_BOCKCRUSHER_LORE = "§7Uncraft items";
 	
-	@Config("iventorytitles.autocrafter.recipe")
+	@Config("inventorytitles.autocrafter.recipe")
 	public static  String INVENTORY_TITLE_RECIPES = "§dRecipes";
-	@Config("iventorytitles.autocrafter.menue")
-	public static  String INVENTORY_TITLE_AUTOCRAFTER_MENUE = "§dSelect";
+	@Config("inventorytitles.autocrafter.menue")
+	public static  String INVENTORY_TITLE_SELECTOPTION = "§dSelect";
+	
+	@Config("setting.block.blockconverter.probability")
+	public static final int DIAMOND_PROBABILITY = 5;
 	
 	
 	
@@ -56,7 +67,10 @@ public class Messages {
 				f.setAccessible(true);
 				Config annotation = f.getAnnotation(Config.class);
 				if(config.isSet(annotation.value())) {
-					f.set(null, config.getString(annotation.value()).replace("&", "§"));
+					if(f.getType().equals(String.class))
+						f.set(null, config.getString(annotation.value()).replace("&", "§"));
+					else if(f.getType().equals(Integer.class))
+						f.set(null, config.getInt(annotation.value()));
 				} else
 					config.set(annotation.value(), String.valueOf(f.get(null)).replace("§", "&"));
 			}

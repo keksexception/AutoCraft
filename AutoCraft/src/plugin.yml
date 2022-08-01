@@ -1,7 +1,8 @@
 name: AutoCraft
-version: BETA-3
+version: 1.0.0
 authors: [keksexception]
 main: de.raffi.autocraft.main.AutoCraft
+softdepend: [ProtocolLib]
 
 commands:
    autocraft:

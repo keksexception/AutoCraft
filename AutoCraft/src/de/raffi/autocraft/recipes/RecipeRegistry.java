@@ -42,7 +42,19 @@ public class RecipeRegistry {
 		});
 		System.out.println("[AutoCraft] Registering recipes completed");
 	}
-
+	public static List<Recipe> filter(String filter) {
+		if(filter == null) return recipes;
+		List<Recipe> available = new ArrayList<>();
+		for(Recipe r : RecipeRegistry.getRecipes()) {
+			boolean add = false;
+			if(r.getTarget().getType().name().toLowerCase().contains(filter.toLowerCase())) add = true;
+			if(r.getTarget().getItemMeta().getDisplayName()!=null&&r.getTarget().getItemMeta().getDisplayName().toLowerCase().contains(filter.toLowerCase())) add = true;
+			if(add)
+				available.add(r);
+			
+		}
+		return available;
+	}
 	private static List<ItemStack> summarize(List<ItemStack> list) {
 		List<ItemStack>  summarized= new ArrayList<>();
 		List<ItemStack>  checkedStacks= new ArrayList<>();

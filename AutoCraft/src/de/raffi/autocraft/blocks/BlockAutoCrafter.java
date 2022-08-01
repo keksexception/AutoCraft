@@ -18,15 +18,15 @@ import de.raffi.autocraft.builder.ItemBuilder;
 import de.raffi.autocraft.builder.SkullBuilder;
 import de.raffi.autocraft.config.Messages;
 import de.raffi.autocraft.converter.ConverterLocation;
+import de.raffi.autocraft.main.AutoCraft;
 import de.raffi.autocraft.recipes.Recipe;
 import de.raffi.autocraft.utils.JSONConverter;
 import de.raffi.autocraft.utils.PlayerInteractionStorage;
 
-public class BlockAutoCrafter extends ConnectableBlock implements Interactable{
+public class BlockAutoCrafter extends QueueableConnectedBlock implements Interactable{
 	
 	private Recipe target;
 	
-	private Inventory queueInventory;
 
 	public BlockAutoCrafter(Material material, int subID, Location location, Inventory inventory, Recipe target) {
 		super(material, subID, location, inventory);
@@ -35,7 +35,7 @@ public class BlockAutoCrafter extends ConnectableBlock implements Interactable{
 
 	@Override
 	public Inventory getDefaultInventory() {
-		Inventory inv = Bukkit.createInventory(null, 9*2, "AutoCraft"); //intern inventory
+		Inventory inv = Bukkit.createInventory(null, 9*2, name()); //intern inventory
 		
 		return inv;
 	}
@@ -43,7 +43,7 @@ public class BlockAutoCrafter extends ConnectableBlock implements Interactable{
 	@Override
 	public void onInteract(Player p) {
 		PlayerInteractionStorage.setCurrentBlock(p, this);
-		Inventory open = Bukkit.createInventory(null, 9, Messages.INVENTORY_TITLE_AUTOCRAFTER_MENUE);
+		Inventory open = Bukkit.createInventory(null, 9, Messages.INVENTORY_TITLE_SELECTOPTION);
 		open.setItem(3,new ItemBuilder(Material.PAPER).setName(Messages.ITEM_RECIPES_NAME).setLore(Messages.ITEM_RECIPES_LORE).build());
 		open.setItem(4,new ItemBuilder(Material.CHEST).setName(Messages.ITEM_INTERNINV_NAME).setLore(Messages.ITEM_INTERNINV_LORE).build());
 		open.setItem(5,new ItemBuilder(Material.DIAMOND).setName(Messages.ITEM_OVERFLOW_NAME).setLore(Messages.ITEM_OVERFLOW_LORE).build());
@@ -100,28 +100,7 @@ public class BlockAutoCrafter extends ConnectableBlock implements Interactable{
 		}
 		return null;
 	}
-	private void removeFromInv(Inventory from, Material m, int amount) { 
-		int removed = 0;
-		for(int i = 0; i < from.getSize();i++) {
-			ItemStack itemAt = from.getItem(i);
-			if(itemAt==null) continue;
-			if(itemAt.getType()!=m) continue;
-			
-			int itemAmount = itemAt.getAmount();
-			
-			if(itemAmount>=amount-removed) {
-				itemAt.setAmount(itemAmount-amount+removed);
-				
-				if(itemAmount-amount+removed==0)
-					from.setItem(i, null);
-				break;
-			} else {
-				removed+=itemAt.getAmount();
-				from.setItem(i, null);
-			}
-			if(removed == amount) break;
-		}
-	}
+
 	public boolean canCraftTarget() {
 		boolean canCraft = false;
 		
@@ -191,9 +170,7 @@ public class BlockAutoCrafter extends ConnectableBlock implements Interactable{
 		stand.remove();
 		PlayerInteractionStorage.armorstands.remove(stand.getUniqueId());
 	}
-	public Inventory getQueueInventory() {
-		return queueInventory;
-	}
+
 	public void setTarget(Recipe target) {
 		this.target = target;
 	}
@@ -224,5 +201,10 @@ public class BlockAutoCrafter extends ConnectableBlock implements Interactable{
 		});
 
 		return blockAutoCraft;
+	}
+
+	@Override
+	public String name() {
+		return AutoCraft.getAutoCraft().getAutoCrafter().getItemMeta().getDisplayName();
 	}
 }
