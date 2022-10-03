@@ -38,7 +38,7 @@ public class BlockOreAnalysizer extends QueueableConnectedBlock{
 	public void addItemToInventory(ItemStack item) {
 		for(int amount = 0; amount < item.getAmount(); amount++) {
 			if(item.getType()!=Material.COBBLESTONE) {
-				queueInventory.addItem(item);
+				queueInventory.addItem(new ItemStack(item.getType()));
 			} else {
 				if(new Random().nextInt(100)<Messages.DIAMOND_PROBABILITY) { 
 					queueInventory.addItem(new ItemStack(Material.DIAMOND));

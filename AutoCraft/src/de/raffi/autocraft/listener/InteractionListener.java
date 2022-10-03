@@ -144,7 +144,7 @@ public class InteractionListener implements Listener {
 			if(e.getPlayer().getGameMode()==GameMode.CREATIVE) return;
 			e.setCancelled(true);
 			e.getBlock().setType(Material.AIR);
-			e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), AutoCraft.getAutoCraft().getAutoEnchanter());
+			e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), AutoCraft.getAutoCraft().getOreBlock());
 			break;
 		case NOTE_BLOCK:
 			BasicBlock crusher  = BlockManager.getBlockAt(e.getBlock());
@@ -157,7 +157,7 @@ public class InteractionListener implements Listener {
 			if(e.getPlayer().getGameMode()==GameMode.CREATIVE) return;
 			e.setCancelled(true);
 			e.getBlock().setType(Material.AIR);
-			e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), AutoCraft.getAutoCraft().getAutoEnchanter());
+			e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), AutoCraft.getAutoCraft().getBlockCrusher());
 			break;
 		case HOPPER:
 			for(BasicBlock basic : BlockManager.getBlocks()) {
