@@ -84,7 +84,12 @@ public class Messages {
 						f.set(null, config.getBoolean(annotation.value()));
 					
 				} else
-					config.set(annotation.value(), String.valueOf(f.get(null)).replace("§", "&"));
+					if(f.getType().equals(String.class))
+						config.set(annotation.value(), String.valueOf(f.get(null)).replace("§", "&"));
+					else if(f.getType().equals(Integer.class) || f.getType().equals(int.class))
+						config.set(annotation.value(), f.getInt(null));
+					else if(f.getType().equals(Boolean.class)|| f.getType().equals(boolean.class)) 
+						config.set(annotation.value(), f.getBoolean(null));
 			}
 			config.save(configFile);
 		} catch (Exception e) {

@@ -55,6 +55,7 @@ public class RecipeRegistry {
 		}
 		return available;
 	}
+	
 	private static List<ItemStack> summarize(List<ItemStack> list) {
 		List<ItemStack>  summarized= new ArrayList<>();
 		List<ItemStack>  checkedStacks= new ArrayList<>();
