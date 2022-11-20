@@ -10,6 +10,8 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 
 import de.raffi.autocraft.builder.ItemBuilder;
+import de.raffi.autocraft.config.Messages;
+import de.raffi.autocraft.main.AutoCraft;
 
 public class RecipeRegistry {
 	
@@ -19,28 +21,31 @@ public class RecipeRegistry {
 		recipes.add(r);
 	}
 	public static void init() {
-		recipes = new ArrayList<>();
-		System.out.println("[AutoCraft] Registering recipes ...");
-		
-		Bukkit.getServer().recipeIterator().forEachRemaining(rec->{
-			if(rec instanceof ShapelessRecipe) {
-				ShapelessRecipe shapeless = (ShapelessRecipe) rec;
-				if(shapeless.getResult().getAmount()!=0) {
-					add(new Recipe(shapeless.getResult(), summarize(shapeless.getIngredientList()).toArray(ItemStack[]::new)));
-					
-				}
+		Bukkit.getScheduler().scheduleSyncDelayedTask(AutoCraft.getAutoCraft(), ()->{
+			recipes = new ArrayList<>();
+			System.out.println("[AutoCraft] Registering recipes ...");
 			
+			Bukkit.getServer().recipeIterator().forEachRemaining(rec->{
+				if(rec instanceof ShapelessRecipe) {
+					ShapelessRecipe shapeless = (ShapelessRecipe) rec;
+					if(shapeless.getResult().getAmount()!=0) {
+						add(new Recipe(shapeless.getResult(), summarize(shapeless.getIngredientList()).toArray(ItemStack[]::new)));
+						
+					}
 				
 					
-			} else if(rec instanceof ShapedRecipe) {
-				ShapedRecipe shaped = (ShapedRecipe) rec;
-				if(shaped.getResult().getAmount()!=0) {
-					add(new Recipe(shaped.getResult(), summarize(shaped.getIngredientMap().values().stream().toList()).toArray(ItemStack[]::new)));
-				}
+						
+				} else if(rec instanceof ShapedRecipe) {
+					ShapedRecipe shaped = (ShapedRecipe) rec;
+					if(shaped.getResult().getAmount()!=0) {
+						add(new Recipe(shaped.getResult(), summarize(shaped.getIngredientMap().values().stream().toList()).toArray(ItemStack[]::new)));
+					}
 
-			}
-		});
-		System.out.println("[AutoCraft] Registering recipes completed");
+				}
+			});
+			System.out.println("[AutoCraft] Registering recipes completed");
+		},Messages.RECIPEREGISTRY_DELAY);
+		
 	}
 	public static List<Recipe> filter(String filter) {
 		if(filter == null) return recipes;
