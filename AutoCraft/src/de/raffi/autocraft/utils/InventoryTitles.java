@@ -43,8 +43,8 @@ public class InventoryTitles {
 					.build());
 		}
 		
-		recipes.setItem(9*4-3, new ItemBuilder(Material.SIGN).setName("§dSearch").setLore("§d" + available.size()+ " §7results.").build());
-		recipes.setItem(9*3+2, new ItemBuilder(Material.REDSTONE_TORCH_ON).setName("§dReset search").build());
+		recipes.setItem(9*4-3, new ItemBuilder(Material.SIGN).setName(Messages.ITEM_SEARCH_NAME).setLore(Messages.ITEM_SEARCH_LORE.replaceFirst("%amount%", ""+available.size())).build());
+		recipes.setItem(9*3+2, new ItemBuilder(Material.REDSTONE_TORCH_ON).setName(Messages.ITEM_RESETSEARCH_NAME).build());
 		
 		if(page!=0)
 			recipes.setItem(9*3, new ItemBuilder(Material.PAPER).setName("§e<<").setLore(Messages.PAGE+" " +page).build());

@@ -1,6 +1,7 @@
 package de.raffi.autocraft.recipes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.inventory.ItemStack;
@@ -48,5 +49,8 @@ public class Recipe {
 		
 		return new Recipe(target,  ingrediants.stream().toArray(ItemStack[]::new));
 	}
-
+	@Override
+	public String toString() {
+		return "Recipe [target=" + target + ", ingrediants=" + Arrays.toString(ingrediants) + "]";
+	}
 }

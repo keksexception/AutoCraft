@@ -247,9 +247,5 @@ public class InteractionListener implements Listener {
 		
 	}
 	
-	@EventHandler
-	public void onManipulate(PlayerArmorStandManipulateEvent e) {
-		if(PlayerInteractionStorage.armorstands.contains(e.getRightClicked().getUniqueId())) e.setCancelled(true);
-	}
 	
 	}
